@@ -164,6 +164,12 @@ unsigned int PNGWriter::nextRow( const unsigned char* row )
 }
 unsigned int PNGWriter::nextRows( const unsigned char* rows , unsigned int rowNum )
 {
-	for( unsigned int r=0 ; r<rowNum ; r++ ) png_write_row( _png_ptr , (png_bytep)( rows + r * 3 * sizeof( unsigned char ) * _png_ptr->width ) );
-	return _currentRow += rowNum;
+    unsigned int channels = png_get_channels( _png_ptr , _info_ptr );
+    unsigned int width = png_get_image_width( _png_ptr , _info_ptr );
+
+    for( unsigned int r = 0 ; r < rowNum ; r++ ) 
+    {
+        png_write_row( _png_ptr, (png_bytep)( rows + r * width * channels ) );
+    }
+    return _currentRow += rowNum;
 }

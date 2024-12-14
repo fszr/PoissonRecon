@@ -33,6 +33,7 @@ DAMAGE.
 #include <vector>
 #include "Image.h"
 #include "png.h"
+#include <zlib.h>
 
 namespace PoissonRecon
 {
